@@ -8,4 +8,7 @@ var BrandSchema = mongoose.Schema(
 );
 
 //Export Model
-module.exports = mongoose.model('Brand', BrandSchema);
+var Brand = module.exports = mongoose.model('brand', BrandSchema);
+module.exports.get = function (callback, limit) {
+    Brand.find(callback).limit(limit);
+}

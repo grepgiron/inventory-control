@@ -19,12 +19,12 @@ exports.index = function(req, res) {
 exports.new = function(req, res){
 	var brand = new Brand();
 	brand.name = req.body.name ? req.body.name : brand.name;
-	contact.save(function (err) {
+	brand.save(function (err) {
         if (err)
         	res.json(err);
         res.json({
-        	message: 'New contact created!',
-        	data: contact
+        	message: 'New brand created!',
+        	data: brand
             });
     });
 };
@@ -35,6 +35,7 @@ exports.view = function(req, res){
 			res.json(err);
 		res.json({
 			message: "Brand details",
+			name: brand.name,
 			data: brand
 		});
 	});
