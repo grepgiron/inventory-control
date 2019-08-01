@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
 var brandController = require('../controllers/brand');
 var categoryController = require('../controllers/category');
 var stockController = require('../controllers/stock');
+var productController = require('../controllers/product');
 
 //--------Routes Brands----------//
 router.route('/brands')
@@ -46,6 +47,17 @@ router.route('/stocks/:_id')
 	.patch(stockController.update)
 	.put(stockController.update)
 	.delete(stockController.delete);
+
+//--------Routes Products----------//
+router.route('/products')
+	.get(productController.index)
+	.post(productController.create);
+
+router.route('/products/:_id')
+	.get(productController.view)
+	.patch(productController.update)
+	.put(productController.update)
+	.delete(productController.delete);
 
 
 // Export API routes
