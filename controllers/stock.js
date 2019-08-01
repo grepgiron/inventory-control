@@ -1,7 +1,7 @@
-Brand = require('../models/brand.js');
+Stock = require('../models/stock.js');
  
 exports.index = function(req, res) {
-	Brand.get(function(err, brands) {
+	Stock.get(function(err, stocks) {
 		if(err){
 			res.json({
 				status: "error",
@@ -10,8 +10,8 @@ exports.index = function(req, res) {
 		}
 		res.json({
 			status: "success",
-			message: "Brands retrieved successfully",
-			data: brands
+			message: "stocks retrieved successfully",
+			data: stocks
 		});
 	});
 };
@@ -21,21 +21,21 @@ exports.create = (req, res) => {
 	console.log(res);
 	if(!req.body){
 		return res.status(400).send({
-			message: "Brand content can not beempty"
+			message: "Stock content can not be empty"
 		});
 	}
 
-	const brand = new Brand({
-		name: req.body.name || "No brand name",
-		description: req.body.description
+	const stock = new Stock({
+		name: req.body.name || "No stock name",
+		quanty: req.body.quanty
 	});
 
-	brand.save()
+	stock.save()
 	.then(data => {
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
-            message: err.message || "Something wrong while creating the brand."
+            message: err.message || "Something wrong while creating the stock."
         });
 	});
 };
@@ -55,28 +55,28 @@ exports.create = (req, res) => {
 };*/
 
 exports.view = function(req, res){
-	Brand.findById(req.params._id, function (err, brand){
+	Stock.findById(req.params._id, function (err, stock){
 		if(err)
 			res.json(err);
 		res.json({
-			message: "Brand details",
-			name: brand.name,
-			data: brand
+			message: "Stock details",
+			name: stock.name,
+			data: stock
 		});
 	});
 };
 
 exports.update = function(req, res){
-	Brand.findById(req.paramas._id, function(err, brand){
+	Stock.findById(req.paramas._id, function(err, stock){
 		if(err)
 			res.json(err);
-		brand.name =req.body.name ? req.body.name : brand.name;
-		brand.save(function(err){
+		stock.name =req.body.name ? req.body.name : stock.name;
+		stock.save(function(err){
 			if(err)
 				res.json(err);
 			res.json({
 				message: "Contact info update",
-				data: brand
+				data: stock
 			});
 		});
 	});
@@ -84,13 +84,13 @@ exports.update = function(req, res){
 
 
 exports.delete = function (req, res) {
-    Brand.remove({
+    Stock.remove({
         _id: req.params._id
-    }, function (err, brand) {
+    }, function (err, stock) {
         if (err)
             res.send(err);res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'stock deleted'
         });
     });
 };

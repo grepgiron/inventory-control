@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Shema;
+const Schema = mongoose.Schema;
 
 
 var CategorySchema = new Schema(
@@ -10,3 +10,6 @@ var CategorySchema = new Schema(
 
 //Export Model
 module.exports = mongoose.model('Category', CategorySchema);
+module.exports.get = function (callback, limit) {
+    Category.find(callback).limit(limit);
+}

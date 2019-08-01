@@ -1,7 +1,7 @@
-Brand = require('../models/brand.js');
+Category = require('../models/category.js');
  
 exports.index = function(req, res) {
-	Brand.get(function(err, brands) {
+	Category.get(function(err, categories) {
 		if(err){
 			res.json({
 				status: "error",
@@ -10,32 +10,31 @@ exports.index = function(req, res) {
 		}
 		res.json({
 			status: "success",
-			message: "Brands retrieved successfully",
-			data: brands
+			message: "categories retrieved successfully",
+			data: categories
 		});
 	});
 };
 
 exports.create = (req, res) => {
-	console.log(req.body);
-	console.log(res);
 	if(!req.body){
 		return res.status(400).send({
-			message: "Brand content can not beempty"
+			message: "Category content can not be empty"
 		});
 	}
 
-	const brand = new Brand({
-		name: req.body.name || "No brand name",
+	const category = new Category({
+		name: req.body.name || "No product name",
 		description: req.body.description
 	});
 
-	brand.save()
+	category.save()
 	.then(data => {
+		console.log(data);
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
-            message: err.message || "Something wrong while creating the brand."
+            message: err.message || "Something wrong while creating the category."
         });
 	});
 };
@@ -55,28 +54,28 @@ exports.create = (req, res) => {
 };*/
 
 exports.view = function(req, res){
-	Brand.findById(req.params._id, function (err, brand){
+	Category.findById(req.params._id, function (err, category){
 		if(err)
 			res.json(err);
 		res.json({
-			message: "Brand details",
-			name: brand.name,
-			data: brand
+			message: "Category details",
+			name: category.name,
+			data: category
 		});
 	});
 };
 
 exports.update = function(req, res){
-	Brand.findById(req.paramas._id, function(err, brand){
+	Category.findById(req.paramas._id, function(err, category){
 		if(err)
 			res.json(err);
-		brand.name =req.body.name ? req.body.name : brand.name;
-		brand.save(function(err){
+		category.name =req.body.name ? req.body.name : category.name;
+		category.save(function(err){
 			if(err)
 				res.json(err);
 			res.json({
-				message: "Contact info update",
-				data: brand
+				message: "Category info update",
+				data: category
 			});
 		});
 	});
@@ -84,13 +83,13 @@ exports.update = function(req, res){
 
 
 exports.delete = function (req, res) {
-    Brand.remove({
+    Category.remove({
         _id: req.params._id
-    }, function (err, brand) {
+    }, function (err, category) {
         if (err)
             res.send(err);res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'Category deleted'
         });
     });
 };
