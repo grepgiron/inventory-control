@@ -1,3 +1,4 @@
+"use strict"
 // Initialize express router
 let router = require('express').Router();
 
@@ -13,7 +14,7 @@ var brandController = require('../controllers/brand');
 
 router.route('/brands')
 	.get(brandController.index)
-	.post(brandController.new);
+	.post(brandController.create);
 
 router.route('/brands/:_id')
 	.get(brandController.view)

@@ -16,7 +16,32 @@ exports.index = function(req, res) {
 	});
 };
 
-exports.new = function(req, res){
+exports.create = (req, res) => {
+	console.log(req.body);
+	console.log(res);
+	if(!req.body){
+		return res.status(400).send({
+			message: "Brand content can not beempty"
+		});
+	}
+
+	const brand = new Brand({
+		name: req.body.name || "No product name",
+		description: req.body.description
+	});
+
+	brand.save()
+	.then(data => {
+		res.send(data);
+	}).catch(err => {
+		res.status(500).send({
+            message: err.message || "Something wrong while creating the brand."
+        });
+	});
+};
+
+
+/*exports.new = function(req, res){
 	var brand = new Brand();
 	brand.name = req.body.name ? req.body.name : brand.name;
 	brand.save(function (err) {
@@ -27,7 +52,7 @@ exports.new = function(req, res){
         	data: brand
             });
     });
-};
+};*/
 
 exports.view = function(req, res){
 	Brand.findById(req.params._id, function (err, brand){
