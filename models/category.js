@@ -9,7 +9,7 @@ var CategorySchema = new Schema(
 );
 
 //Export Model
-module.exports = mongoose.model('Category', CategorySchema);
+module.exports = mongoose.model('category', CategorySchema);
 module.exports.get = function (callback, limit) {
     Category.find(callback).limit(limit);
 }

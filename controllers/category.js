@@ -11,7 +11,7 @@ exports.index = function(req, res) {
 		res.json({
 			status: "success",
 			message: "categories retrieved successfully",
-			data: categories
+			categories: categories
 		});
 	});
 };
@@ -60,7 +60,7 @@ exports.view = function(req, res){
 		res.json({
 			message: "Category details",
 			name: category.name,
-			data: category
+			category: category
 		});
 	});
 };

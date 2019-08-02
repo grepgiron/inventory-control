@@ -20,17 +20,11 @@ exports.create = (req, res) => {
 	console.log(req.body);
 	if(!req.body){
 		return res.status(400).send({
-			message: "Product content can not beempty"
+			message: "Product content can not be empty"
 		});
 	}
 
-	const product = new Product({
-		code: req.body.code,
-		name: req.body.name || "No product name",
-		brand: req.body.brand,
-		cotegory: req.body.category,
-		price: req.body.price
-	});
+	const product = new Product(req.body);
 
 	product.save()
 	.then(data => {

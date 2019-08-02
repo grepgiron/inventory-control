@@ -1,7 +1,14 @@
 Brand = require('../models/brand.js');
  
 exports.index = function(req, res) {
-	Brand.get(function(err, brands) {
+	Brand.find({}, function(err, brands){
+		if(err)
+			res.status(500).send(err);
+		res.status(200).send(brands);
+	});
+
+
+	/*Brand.get(function(err, brands) {
 		if(err){
 			res.json({
 				status: "error",
@@ -13,7 +20,7 @@ exports.index = function(req, res) {
 			message: "Brands retrieved successfully",
 			data: brands
 		});
-	});
+	});*/
 };
 
 exports.create = (req, res) => {
@@ -56,13 +63,10 @@ exports.create = (req, res) => {
 
 exports.view = function(req, res){
 	Brand.findById(req.params._id, function (err, brand){
+		console.log(req.params._id);
 		if(err)
 			res.json(err);
-		res.json({
-			message: "Brand details",
-			name: brand.name,
-			data: brand
-		});
+		res.json(brand);
 	});
 };
 

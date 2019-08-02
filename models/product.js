@@ -1,14 +1,35 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var Brand = mongoose.model('Brand');
+var Category = mongoose.model('category');
 
 
 var ProductSchema = new Schema(
 	{
-		code: {	type: String, require: true, max: 100	},
-		name: {	type: String, require: true, max: 100	},
-		brand: {	type: Schema.Types.ObjectId, ref: 'Brand', require: true	},
-		category: {	type: Schema.Types.ObjectId, ref: 'Category', require: true	},
-		price: {	type: Schema.Types.Decimal128, require: true 	}
+		code: {	
+			type: String, 
+			require: true, 
+			max: 100	
+		},
+		name: {	
+			type: String,
+			require: true, 
+			max: 100	
+		},
+		brand: {	
+			type: Schema.Types.ObjectId, 
+			ref: 'brand', 
+			required: [true, 'Brand is required']	
+		},
+		category: {	
+			type: Schema.Types.ObjectId, 
+			ref: 'category', 
+			required: [true, 'Category is required']	
+		},
+		price: {	
+			type: Schema.Types.Decimal128, 
+			require: true 	
+		}
 	}
 );
 
