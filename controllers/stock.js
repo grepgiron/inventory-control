@@ -56,13 +56,10 @@ exports.create = (req, res) => {
 
 exports.view = function(req, res){
 	Stock.findById(req.params._id, function (err, stock){
+		console.log(req.params._id);
 		if(err)
 			res.json(err);
-		res.json({
-			message: "Stock details",
-			name: stock.name,
-			data: stock
-		});
+		res.json(stock);
 	});
 };
 

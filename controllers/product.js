@@ -1,19 +1,14 @@
 Product = require('../models/product.js');
+Brand = require('../models/brand.js');
  
 exports.index = function(req, res) {
-	Product.get(function(err, products) {
-		if(err){
-			res.json({
-				status: "error",
-				messafe: "error"
-			});
-		}
-		res.json({
-			status: "success",
-			message: "products retrieved successfully",
-			data: products
+	Product.find()
+		.populate('Brand')
+		.exec(function(err, products){
+			if(err)
+				console.log(err);
+			res.json(products);
 		});
-	});
 };
 
 exports.create = (req, res) => {
@@ -52,13 +47,10 @@ exports.create = (req, res) => {
 
 exports.view = function(req, res){
 	Product.findById(req.params._id, function (err, product){
+		console.log(req.params._id);
 		if(err)
 			res.json(err);
-		res.json({
-			message: "Product details",
-			name: product.name,
-			data: product
-		});
+		res.json(product);
 	});
 };
 

@@ -55,13 +55,10 @@ exports.create = (req, res) => {
 
 exports.view = function(req, res){
 	Category.findById(req.params._id, function (err, category){
+		console.log(req.params._id);
 		if(err)
 			res.json(err);
-		res.json({
-			message: "Category details",
-			name: category.name,
-			category: category
-		});
+		res.json(category);
 	});
 };
 
