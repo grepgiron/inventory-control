@@ -3,7 +3,8 @@ Brand = require('../models/brand.js');
  
 exports.index = function(req, res) {
 	Product.find()
-		.populate('Brand')
+		.populate('brand', 'name')
+		.populate('category', 'name')
 		.exec(function(err, products){
 			if(err)
 				console.log(err);
@@ -46,10 +47,10 @@ exports.create = (req, res) => {
 };*/
 
 exports.view = function(req, res){
-	Product.findById(req.params._id, function (err, product){
-		console.log(req.params._id);
+	Product.findById(req.params._id).populate('Brand')
+	.exec(function(err, product){
 		if(err)
-			res.json(err);
+			console.log(err);
 		res.json(product);
 	});
 };

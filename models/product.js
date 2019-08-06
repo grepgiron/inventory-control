@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var Brand = mongoose.model('Brand');
-var Category = mongoose.model('category');
+var Category = mongoose.model('Category');
 
 
 var ProductSchema = new Schema(
@@ -18,12 +18,12 @@ var ProductSchema = new Schema(
 		},
 		brand: {	
 			type: Schema.Types.ObjectId, 
-			ref: 'brand', 
+			ref: 'Brand', 
 			required: [true, 'Brand is required']	
 		},
 		category: {	
 			type: Schema.Types.ObjectId, 
-			ref: 'category', 
+			ref: 'Category', 
 			required: [true, 'Category is required']	
 		},
 		price: {	
