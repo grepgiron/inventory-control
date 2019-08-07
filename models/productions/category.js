@@ -1,12 +1,15 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const timestamps = require('mongoose-timestamp');
 
 
-var CategorySchema = new Schema(
+
+var CategorySchema = mongoose.Schema(
 	{
 		name: {	type: String, require: true, max: 100	}
 	}
 );
+
+CategorySchema.plugin(timestamps);
 
 //Export Model
 module.exports = mongoose.model('Category', CategorySchema);

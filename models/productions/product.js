@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
-var Brand = mongoose.model('Brand');
-var Category = mongoose.model('Category');
+//var Brand = mongoose.model('Brand');
+//var Category = mongoose.model('Category');
 
 
-var ProductSchema = new Schema(
+var ProductSchema = mongoose.Schema(
 	{
 		code: {	
 			type: String, 
@@ -32,6 +33,8 @@ var ProductSchema = new Schema(
 		}
 	}
 );
+
+ProductSchema.plugin(timestamps);
 
 //Export Model
 module.exports = mongoose.model('Product', ProductSchema);
