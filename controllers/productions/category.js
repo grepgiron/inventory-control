@@ -1,4 +1,4 @@
-Category = require('../models/category.js');
+Category = require('../../models/productions/category.js');
  
 exports.index = function(req, res) {
 	Category.get(function(err, categories) {

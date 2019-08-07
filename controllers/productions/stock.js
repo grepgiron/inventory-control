@@ -1,33 +1,41 @@
-Product = require('../models/product.js');
-Brand = require('../models/brand.js');
+Stock = require('../../models/productions/stock.js');
  
 exports.index = function(req, res) {
-	Product.find()
-		.populate('brand', 'name')
-		.populate('category', 'name')
-		.exec(function(err, products){
-			if(err)
-				console.log(err);
-			res.json(products);
+	Stock.get(function(err, stocks) {
+		if(err){
+			res.json({
+				status: "error",
+				messafe: "error"
+			});
+		}
+		res.json({
+			status: "success",
+			message: "stocks retrieved successfully",
+			data: stocks
 		});
+	});
 };
 
 exports.create = (req, res) => {
 	console.log(req.body);
+	console.log(res);
 	if(!req.body){
 		return res.status(400).send({
-			message: "Product content can not be empty"
+			message: "Stock content can not be empty"
 		});
 	}
 
-	const product = new Product(req.body);
+	const stock = new Stock({
+		name: req.body.name || "No stock name",
+		quanty: req.body.quanty
+	});
 
-	product.save()
+	stock.save()
 	.then(data => {
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
-            message: err.message || "Something wrong while creating the product."
+            message: err.message || "Something wrong while creating the stock."
         });
 	});
 };
@@ -47,25 +55,25 @@ exports.create = (req, res) => {
 };*/
 
 exports.view = function(req, res){
-	Product.findById(req.params._id).populate('Brand')
-	.exec(function(err, product){
+	Stock.findById(req.params._id, function (err, stock){
+		console.log(req.params._id);
 		if(err)
-			console.log(err);
-		res.json(product);
+			res.json(err);
+		res.json(stock);
 	});
 };
 
 exports.update = function(req, res){
-	Product.findById(req.paramas._id, function(err, product){
+	Stock.findById(req.paramas._id, function(err, stock){
 		if(err)
 			res.json(err);
-		product.name =req.body.name ? req.body.name : product.name;
-		product.save(function(err){
+		stock.name =req.body.name ? req.body.name : stock.name;
+		stock.save(function(err){
 			if(err)
 				res.json(err);
 			res.json({
 				message: "Contact info update",
-				data: product
+				data: stock
 			});
 		});
 	});
@@ -73,13 +81,13 @@ exports.update = function(req, res){
 
 
 exports.delete = function (req, res) {
-    Product.remove({
+    Stock.remove({
         _id: req.params._id
-    }, function (err, product) {
+    }, function (err, stock) {
         if (err)
             res.send(err);res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'stock deleted'
         });
     });
 };

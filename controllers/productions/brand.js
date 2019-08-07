@@ -1,4 +1,4 @@
-Brand = require('../models/brand.js');
+Brand = require('../../models/productions/brand.js');
  
 exports.index = function(req, res) {
 	Brand.find({}, function(err, brands){
@@ -6,21 +6,6 @@ exports.index = function(req, res) {
 			res.status(500).send(err);
 		res.status(200).send(brands);
 	});
-
-
-	/*Brand.get(function(err, brands) {
-		if(err){
-			res.json({
-				status: "error",
-				messafe: "error"
-			});
-		}
-		res.json({
-			status: "success",
-			message: "Brands retrieved successfully",
-			data: brands
-		});
-	});*/
 };
 
 exports.create = (req, res) => {

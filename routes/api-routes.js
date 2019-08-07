@@ -5,15 +5,15 @@ let router = require('express').Router();
 // Set default API response
 router.get('/', function (req, res) {
     res.json({
-        status: 'API Its Working',
-        message: 'Welcome to RESTHub crafted with love!'
+        status: 'API OK',
+        message: 'RestFull'
     });
 });
 
-var brandController = require('../controllers/brand');
-var categoryController = require('../controllers/category');
-var stockController = require('../controllers/stock');
-var productController = require('../controllers/product');
+var brandController = require('../controllers/productions/brand');
+var categoryController = require('../controllers/productions/category');
+var stockController = require('../controllers/productions/stock');
+var productController = require('../controllers/productions/product');
 
 //--------Routes Brands----------//
 router.route('/brands')
