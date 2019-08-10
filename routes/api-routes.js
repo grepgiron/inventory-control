@@ -65,11 +65,11 @@ router.route('/customers')
 	.get(customerController.index)
 	.post(customerController.create);
 
-/*router.route('/customers/:_id')
-	.get(productController.view)
-	.patch(productController.update)
-	.put(productController.update)
-	.delete(productController.delete);*/
+router.route('/customers/:_id')
+	.get(customerController.view)
+	.patch(customerController.update)
+	.put(customerController.update)
+	.delete(customerController.delete);
 
 
 // Export API routes

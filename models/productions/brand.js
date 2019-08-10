@@ -11,9 +11,8 @@ var BrandSchema = mongoose.Schema(
 
 //Export Model
 BrandSchema.plugin(timestamps);
+
 var Brand = module.exports = mongoose.model('Brand', BrandSchema);
-
-
 module.exports.get = function (callback, limit) {
     Brand.find(callback).limit(limit);
 }

@@ -1,5 +1,6 @@
 Product = require('../../models/productions/product.js');
- 
+
+ //---- Mostrar todos los productos ------!  
 exports.index = function(req, res) {
 	Product.find()
 		.populate('brand', 'name')
@@ -11,6 +12,7 @@ exports.index = function(req, res) {
 		});
 };
 
+ //--------- Crear producto ------------!  
 exports.create = (req, res) => {
 	console.log(req.body);
 	if(!req.body){
@@ -31,9 +33,11 @@ exports.create = (req, res) => {
 	});
 };
 
-
+ //----------- Mostrar producto --------!
 exports.view = function(req, res){
-	Product.findById(req.params._id).populate('Brand')
+	Product.findById(req.params._id)
+	.populate('brand', 'name')
+	.populate('category', 'name')
 	.exec(function(err, product){
 		if(err)
 			console.log(err);
@@ -41,8 +45,9 @@ exports.view = function(req, res){
 	});
 };
 
+//-------- Acutalizar producto --------!
 exports.update = function(req, res){
-	Product.findById(req.paramas._id, function(err, product){
+	Product.findById(req.params._id, function(err, product){
 		if(err)
 			res.json(err);
 		product.name =req.body.name ? req.body.name : product.name;
@@ -50,14 +55,14 @@ exports.update = function(req, res){
 			if(err)
 				res.json(err);
 			res.json({
-				message: "Contact info update",
+				message: "Product info update",
 				data: product
 			});
 		});
 	});
 };
 
-
+//-------- Eliminar producto ------!
 exports.delete = function (req, res) {
     Product.remove({
         _id: req.params._id
@@ -65,7 +70,7 @@ exports.delete = function (req, res) {
         if (err)
             res.send(err);res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'Product deleted'
         });
     });
 };
