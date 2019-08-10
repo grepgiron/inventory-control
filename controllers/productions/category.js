@@ -1,5 +1,6 @@
 Category = require('../../models/productions/category.js');
  
+ //---- Mostrar todos los categorias ------! 
 exports.index = function(req, res) {
 	Category.get(function(err, categories) {
 		if(err){
@@ -16,6 +17,7 @@ exports.index = function(req, res) {
 	});
 };
 
+ //---- Crear nueva categoria ------! 
 exports.create = (req, res) => {
 	if(!req.body){
 		return res.status(400).send({
@@ -39,20 +41,7 @@ exports.create = (req, res) => {
 	});
 };
 
-
-/*exports.new = function(req, res){
-	var brand = new Brand();
-	brand.name = req.body.name ? req.body.name : brand.name;
-	brand.save(function (err) {
-        if (err)
-        	res.json(err);
-        res.json({
-        	message: 'New brand created!',
-        	data: brand
-            });
-    });
-};*/
-
+ //---- Mostrar categoria ------! 
 exports.view = function(req, res){
 	Category.findById(req.params._id, function (err, category){
 		console.log(req.params._id);
@@ -62,8 +51,9 @@ exports.view = function(req, res){
 	});
 };
 
+//---- Actualizar categoria ------! 
 exports.update = function(req, res){
-	Category.findById(req.paramas._id, function(err, category){
+	Category.findById(req.params._id, function(err, category){
 		if(err)
 			res.json(err);
 		category.name =req.body.name ? req.body.name : category.name;
@@ -78,7 +68,7 @@ exports.update = function(req, res){
 	});
 };
 
-
+//---- Borrar categoria ------! 
 exports.delete = function (req, res) {
     Category.remove({
         _id: req.params._id

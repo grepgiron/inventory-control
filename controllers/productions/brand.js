@@ -1,5 +1,7 @@
 Brand = require('../../models/productions/brand.js');
- 
+
+
+//---- Mostrar todos los marcas ------! 
 exports.index = function(req, res) {
 	Brand.find({}, function(err, brands){
 		if(err)
@@ -8,9 +10,10 @@ exports.index = function(req, res) {
 	});
 };
 
+
+//-------- Crear nuevo marca --------!
 exports.create = (req, res) => {
-	console.log(req.body);
-	console.log(res);
+	//console.log(req.body);
 	if(!req.body){
 		return res.status(400).send({
 			message: "Brand content can not beempty"
@@ -33,30 +36,21 @@ exports.create = (req, res) => {
 };
 
 
-/*exports.new = function(req, res){
-	var brand = new Brand();
-	brand.name = req.body.name ? req.body.name : brand.name;
-	brand.save(function (err) {
-        if (err)
-        	res.json(err);
-        res.json({
-        	message: 'New brand created!',
-        	data: brand
-            });
-    });
-};*/
-
+//--------- Mostrar marca ----------!
 exports.view = function(req, res){
+	//console.log(req.params._id);
 	Brand.findById(req.params._id, function (err, brand){
-		console.log(req.params._id);
 		if(err)
 			res.json(err);
 		res.json(brand);
 	});
 };
 
+
+//--------- Actualizar marca ----------!
 exports.update = function(req, res){
-	Brand.findById(req.paramas._id, function(err, brand){
+	//console.log(req.params._id);
+	Brand.findById(req.params._id, function(err, brand){
 		if(err)
 			res.json(err);
 		brand.name =req.body.name ? req.body.name : brand.name;
@@ -64,14 +58,14 @@ exports.update = function(req, res){
 			if(err)
 				res.json(err);
 			res.json({
-				message: "Contact info update",
-				data: brand
+				message: "Marca info update",
+				marca: brand
 			});
 		});
 	});
 };
 
-
+//--------- Borrar marca ----------!
 exports.delete = function (req, res) {
     Brand.remove({
         _id: req.params._id
@@ -79,7 +73,7 @@ exports.delete = function (req, res) {
         if (err)
             res.send(err);res.json({
             status: "success",
-            message: 'Contact deleted'
+            message: 'Marca deleted'
         });
     });
 };

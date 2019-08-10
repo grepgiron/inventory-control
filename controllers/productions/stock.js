@@ -1,34 +1,25 @@
 Stock = require('../../models/productions/stock.js');
  
+//---- Mostrar todos las cantidades ------!  
 exports.index = function(req, res) {
-	Stock.get(function(err, stocks) {
-		if(err){
-			res.json({
-				status: "error",
-				messafe: "error"
-			});
-		}
-		res.json({
-			status: "success",
-			message: "stocks retrieved successfully",
-			data: stocks
-		});
+	Stock.find()
+	.populate('product', 'name price')
+	.exec(function(err, products){
+		if(err)
+			console.log(err);
+		res.json(products);
 	});
 };
 
+//---- Crear nuevas cantidades ------! 
 exports.create = (req, res) => {
-	console.log(req.body);
-	console.log(res);
 	if(!req.body){
 		return res.status(400).send({
 			message: "Stock content can not be empty"
 		});
 	}
 
-	const stock = new Stock({
-		name: req.body.name || "No stock name",
-		quanty: req.body.quanty
-	});
+	const stock = new Stock(req.body);
 
 	stock.save()
 	.then(data => {
@@ -40,20 +31,7 @@ exports.create = (req, res) => {
 	});
 };
 
-
-/*exports.new = function(req, res){
-	var brand = new Brand();
-	brand.name = req.body.name ? req.body.name : brand.name;
-	brand.save(function (err) {
-        if (err)
-        	res.json(err);
-        res.json({
-        	message: 'New brand created!',
-        	data: brand
-            });
-    });
-};*/
-
+//---- Mostrar cantidades de un producto ------! 
 exports.view = function(req, res){
 	Stock.findById(req.params._id, function (err, stock){
 		console.log(req.params._id);
@@ -63,6 +41,7 @@ exports.view = function(req, res){
 	});
 };
 
+//---- Actualizar cantidades ------! 
 exports.update = function(req, res){
 	Stock.findById(req.paramas._id, function(err, stock){
 		if(err)
@@ -72,14 +51,14 @@ exports.update = function(req, res){
 			if(err)
 				res.json(err);
 			res.json({
-				message: "Contact info update",
+				message: "Stock info update",
 				data: stock
 			});
 		});
 	});
 };
 
-
+//---- Borrar Catidades ------! 
 exports.delete = function (req, res) {
     Stock.remove({
         _id: req.params._id

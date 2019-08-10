@@ -32,19 +32,6 @@ exports.create = (req, res) => {
 };
 
 
-/*exports.new = function(req, res){
-	var brand = new Brand();
-	brand.name = req.body.name ? req.body.name : brand.name;
-	brand.save(function (err) {
-        if (err)
-        	res.json(err);
-        res.json({
-        	message: 'New brand created!',
-        	data: brand
-            });
-    });
-};*/
-
 exports.view = function(req, res){
 	Product.findById(req.params._id).populate('Brand')
 	.exec(function(err, product){

@@ -14,6 +14,7 @@ var brandController = require('../controllers/productions/brand');
 var categoryController = require('../controllers/productions/category');
 var stockController = require('../controllers/productions/stock');
 var productController = require('../controllers/productions/product');
+var customerController = require('../controllers/sales/customer');
 
 //--------Routes Brands----------//
 router.route('/brands')
@@ -58,6 +59,17 @@ router.route('/products/:_id')
 	.patch(productController.update)
 	.put(productController.update)
 	.delete(productController.delete);
+
+//--------Routes Customers----------//
+router.route('/customers')
+	.get(customerController.index)
+	.post(customerController.create);
+
+/*router.route('/customers/:_id')
+	.get(productController.view)
+	.patch(productController.update)
+	.put(productController.update)
+	.delete(productController.delete);*/
 
 
 // Export API routes

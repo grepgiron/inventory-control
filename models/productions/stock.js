@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 var StockSchema = mongoose.Schema(
 	{
-		product_id: {	type: Schema.Types.ObjectId, ref: 'Product', require: true	},
+		product: {	type: Schema.Types.ObjectId, ref: 'Product', require: true	},
 		quanty: 	{	type: Number, require: true 	}
 	}
 );
