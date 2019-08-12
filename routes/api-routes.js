@@ -15,6 +15,9 @@ var categoryController = require('../controllers/productions/category');
 var stockController = require('../controllers/productions/stock');
 var productController = require('../controllers/productions/product');
 var customerController = require('../controllers/sales/customer');
+var storeController = require('../controllers/sales/store');
+var staffController = require('../controllers/sales/staff');
+var orderController = require('../controllers/sales/order');
 
 //--------Routes Brands----------//
 router.route('/brands')
@@ -70,6 +73,39 @@ router.route('/customers/:_id')
 	.patch(customerController.update)
 	.put(customerController.update)
 	.delete(customerController.delete);
+
+//--------Routes Stores----------//
+router.route('/stores')
+	.get(storeController.index)
+	.post(storeController.create);
+
+router.route('/stores/:_id')
+	.get(storeController.view)
+	.patch(storeController.update)
+	.put(storeController.update)
+	.delete(storeController.delete);
+
+//--------Routes Stores----------//
+router.route('/staff')
+	.get(staffController.index)
+	.post(staffController.create);
+
+router.route('/staff/:_id')
+	.get(staffController.view)
+	.patch(staffController.update)
+	.put(staffController.update)
+	.delete(staffController.delete);
+
+//--------Routes Orders----------//
+router.route('/orders')
+	.get(orderController.index)
+	.post(orderController.create);
+
+router.route('/orders/:_id')
+	.get(orderController.view)
+	.patch(orderController.update)
+	.put(orderController.update)
+	.delete(orderController.delete);
 
 
 // Export API routes

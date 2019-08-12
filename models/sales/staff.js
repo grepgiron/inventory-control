@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
-
+const Schema = mongoose.Schema;
 
 var StaffSchema = mongoose.Schema(
 	{
@@ -8,7 +8,7 @@ var StaffSchema = mongoose.Schema(
 		email: String,
 		phone: String,
 		active: { 
-			type: Boolean 
+			type: Boolean, default: true 
 		},
 		store: { 
 			type: Schema.Types.ObjectId, 

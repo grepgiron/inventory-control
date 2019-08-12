@@ -62,7 +62,7 @@ exports.update = function(req, res){
 exports.delete = function (req, res) {
     Customer.remove({
         _id: req.params._id
-    }, function (err, brand) {
+    }, function (err, customer) {
         if (err)
             res.send(err);res.json({
             status: "success",
