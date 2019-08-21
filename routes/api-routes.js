@@ -18,6 +18,7 @@ var customerController = require('../controllers/sales/customer');
 var storeController = require('../controllers/sales/store');
 var staffController = require('../controllers/sales/staff');
 var orderController = require('../controllers/sales/order');
+var providerController = require('../controllers/purchases/provider');
 
 //--------Routes Brands----------//
 router.route('/brands')
@@ -107,6 +108,16 @@ router.route('/orders/:_id')
 	.put(orderController.update)
 	.delete(orderController.delete);
 
+//--------Routes Providers----------//
+router.route('/providers')
+	.get(providerController.index)
+	.post(providerController.create);
+
+router.route('/providers/:_id')
+	.get(providerController.view)
+	.patch(providerController.update)
+	.put(providerController.update)
+	.delete(providerController.delete);
 
 // Export API routes
 module.exports = router;
