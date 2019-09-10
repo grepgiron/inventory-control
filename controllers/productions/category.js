@@ -2,18 +2,10 @@ Category = require('../../models/productions/category.js');
  
  //---- Mostrar todos los categorias ------! 
 exports.index = function(req, res) {
-	Category.get(function(err, categories) {
-		if(err){
-			res.json({
-				status: "error",
-				messafe: "error"
-			});
-		}
-		res.json({
-			status: "success",
-			message: "categories retrieved successfully",
-			categories: categories
-		});
+	Category.find({}, function(err, categories){
+		if(err)
+			res.status(500).send(err);
+		res.status(200).send(categories);
 	});
 };
 
@@ -32,7 +24,6 @@ exports.create = (req, res) => {
 
 	category.save()
 	.then(data => {
-		console.log(data);
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
@@ -44,7 +35,6 @@ exports.create = (req, res) => {
  //---- Mostrar categoria ------! 
 exports.view = function(req, res){
 	Category.findById(req.params._id, function (err, category){
-		console.log(req.params._id);
 		if(err)
 			res.json(err);
 		res.json(category);
@@ -53,30 +43,21 @@ exports.view = function(req, res){
 
 //---- Actualizar categoria ------! 
 exports.update = function(req, res){
-	Category.findById(req.params._id, function(err, category){
-		if(err)
-			res.json(err);
-		category.name =req.body.name ? req.body.name : category.name;
-		category.save(function(err){
-			if(err)
-				res.json(err);
-			res.json({
-				message: "Category info update",
-				data: category
-			});
-		});
-	});
+	Category.findByIdAndUpdate(req.params._id, req.body, {new: true}, function (err, category) {
+		if	(err)	return res.status(500).send(err);
+		res.status(200).send(category);
+	})
 };
 
 //---- Borrar categoria ------! 
 exports.delete = function (req, res) {
-    Category.remove({
+    Category.deleteOne({
         _id: req.params._id
     }, function (err, category) {
         if (err)
-            res.send(err);res.json({
+						res.send(err);
+				res.json({
             status: "success",
-            message: 'Category deleted'
         });
     });
 };

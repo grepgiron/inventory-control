@@ -1,6 +1,5 @@
 Brand = require('../../models/productions/brand.js');
 
-
 //---- Mostrar todos los marcas ------! 
 exports.index = function(req, res) {
 	Brand.find({}, function(err, brands){
@@ -10,10 +9,8 @@ exports.index = function(req, res) {
 	});
 };
 
-
 //-------- Crear nuevo marca --------!
 exports.create = (req, res) => {
-	//console.log(req.body);
 	if(!req.body){
 		return res.status(400).send({
 			message: "Brand content can not beempty"
@@ -35,10 +32,8 @@ exports.create = (req, res) => {
 	});
 };
 
-
 //--------- Mostrar marca ----------!
 exports.view = function(req, res){
-	//console.log(req.params._id);
 	Brand.findById(req.params._id, function (err, brand){
 		if(err)
 			res.json(err);
@@ -46,34 +41,23 @@ exports.view = function(req, res){
 	});
 };
 
-
 //--------- Actualizar marca ----------!
 exports.update = function(req, res){
-	//console.log(req.params._id);
-	Brand.findById(req.params._id, function(err, brand){
-		if(err)
-			res.json(err);
-		brand.name =req.body.name ? req.body.name : brand.name;
-		brand.save(function(err){
-			if(err)
-				res.json(err);
-			res.json({
-				message: "Marca info update",
-				marca: brand
-			});
-		});
-	});
+	Brand.findByIdAndUpdate(req.params._id, req.body, {new: true}, function (err, brand) {
+		if	(err)	return res.status(500).send(err);
+		res.status(200).send(brand);
+	})
 };
 
 //--------- Borrar marca ----------!
 exports.delete = function (req, res) {
-    Brand.remove({
+    Brand.deleteOne({
         _id: req.params._id
     }, function (err, brand) {
         if (err)
-            res.send(err);res.json({
-            status: "success",
-            message: 'Marca deleted'
-        });
+						res.send(err);
+				res.json({
+					Status: 'Brand Delete'
+				})
     });
 };

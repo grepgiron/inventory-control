@@ -5,8 +5,12 @@ const Schema = mongoose.Schema;
 
 var StockSchema = mongoose.Schema(
 	{
-		product: {	type: Schema.Types.ObjectId, ref: 'Product', require: true	},
-		quanty: 	{	type: Number, require: true 	}
+		product: {	
+			type: Schema.Types.ObjectId, 
+			ref: 'Product', 
+			require: true	
+		},
+		quanty: 	{	type: Number, default: 0 	}
 	}
 );
 

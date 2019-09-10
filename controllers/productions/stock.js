@@ -33,8 +33,10 @@ exports.create = (req, res) => {
 
 //---- Mostrar cantidades de un producto ------! 
 exports.view = function(req, res){
-	Stock.findById(req.params._id, function (err, stock){
-		console.log(req.params._id);
+	Stock.findById(req.params._id)
+		.populate('product', 'name')
+		.exec(function (err, stock){
+		
 		if(err)
 			res.json(err);
 		res.json(stock);

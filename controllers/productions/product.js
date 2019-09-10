@@ -1,4 +1,5 @@
 Product = require('../../models/productions/product.js');
+Stock = require('../../models/productions/stock.js')
 
  //---- Mostrar todos los productos ------!  
 exports.index = function(req, res) {
@@ -23,6 +24,20 @@ exports.create = (req, res) => {
 
 	const product = new Product(req.body);
 
+	var stockBody = {
+		product: product
+	};
+	const stock = new Stock(stockBody);
+	
+	stock.save()
+	.then(data => {
+		res.send(data);
+	}).catch(err => {
+		res.status(500).send({
+            message: err.message || "Something wrong while creating the stock."
+        });
+	});
+
 	product.save()
 	.then(data => {
 		res.send(data);
@@ -40,37 +55,28 @@ exports.view = function(req, res){
 	.populate('category', 'name')
 	.exec(function(err, product){
 		if(err)
-			console.log(err);
+			res.send(err);
 		res.json(product);
 	});
 };
 
 //-------- Acutalizar producto --------!
 exports.update = function(req, res){
-	Product.findById(req.params._id, function(err, product){
-		if(err)
-			res.json(err);
-		product.name =req.body.name ? req.body.name : product.name;
-		product.save(function(err){
-			if(err)
-				res.json(err);
-			res.json({
-				message: "Product info update",
-				data: product
-			});
-		});
-	});
+	Product.findByIdAndUpdate(req.params._id, req.body, {new: true}, function (err, product) {
+		if	(err)	return res.status(500).send(err);
+		res.status(200).send(product);
+	})
 };
 
 //-------- Eliminar producto ------!
 exports.delete = function (req, res) {
-    Product.remove({
+    Product.deleteOne({
         _id: req.params._id
     }, function (err, product) {
         if (err)
-            res.send(err);res.json({
+						res.status(500).send(err);
+				res.json({
             status: "success",
-            message: 'Product deleted'
-        });
+				});
     });
 };
