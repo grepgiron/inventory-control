@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const timestamps = require('mongoose-timestamp');
 
-var PurchaseORderSchema = mongoose.Schema(
+var PurchaseOrderSchema = mongoose.Schema(
 	{
 		provider: { 
 			type: Schema.Types.ObjectId, 
@@ -38,10 +38,10 @@ var PurchaseORderSchema = mongoose.Schema(
 	}
 );
 
-PurchaseORderSchema.plugin(timestamps);
+PurchaseOrderSchema.plugin(timestamps);
 
 //Export Model
-var PurchaseOrder = module.exports = mongoose.model('PurchaseOrder', PurchaseORderSchema);
+var PurchaseOrder = module.exports = mongoose.model('PurchaseOrder', PurchaseOrderSchema);
 module.exports.get = function (callback, limit) {
     Order.find(callback).limit(limit);
 }

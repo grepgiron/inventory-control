@@ -5,8 +5,12 @@ const timestamps = require('mongoose-timestamp');
 
 var CategorySchema = mongoose.Schema(
 	{
-		name: {	type: String, require: true, max: 100	},
-		description: {	type: String, max: 500	}
+		name: {	
+			type: String, require: true, max: 100	
+		},
+		description: {	
+			type: String, max: 500	
+		}
 	}
 );
 

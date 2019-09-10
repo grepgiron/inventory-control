@@ -10,10 +10,15 @@ router.get('/', function (req, res) {
     });
 });
 
+//Produccion
 var brandController = require('../controllers/productions/brand');
 var categoryController = require('../controllers/productions/category');
-var stockController = require('../controllers/productions/stock');
 var productController = require('../controllers/productions/product');
+var stockController = require('../controllers/productions/stock');
+
+//Inventerio
+var kardexController = require('../controllers/inventory/kardex');
+
 var customerController = require('../controllers/sales/customer');
 var storeController = require('../controllers/sales/store');
 var staffController = require('../controllers/sales/staff');
@@ -118,6 +123,11 @@ router.route('/providers/:_id')
 	.patch(providerController.update)
 	.put(providerController.update)
 	.delete(providerController.delete);
+
+//--------Routes Providers----------//
+router.route('/kardex')		
+	.get(kardexController.index)
+	.post(kardexController.create);
 
 // Export API routes
 module.exports = router;

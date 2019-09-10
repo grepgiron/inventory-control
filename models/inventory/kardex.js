@@ -16,9 +16,13 @@ var KardexSchema = mongoose.Schema(
 			type: String,  
 			required: true,
 		},
-		movement_type: {	
+		description: {	
 			type: String, 
 			require: true 	
+		},
+		date: {
+			type: Schema.Types.Date,
+			required: true,
 		}
 	}
 );
@@ -26,7 +30,7 @@ var KardexSchema = mongoose.Schema(
 KardexSchema.plugin(timestamps);
 
 //Export Model
-module.exports = mongoose.model('Kardex', ProductSchema);
+module.exports = mongoose.model('Kardex', KardexSchema);
 module.exports.get = function (callback, limit) {
     Product.find(callback).limit(limit);
 }

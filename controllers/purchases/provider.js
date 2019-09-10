@@ -1,6 +1,6 @@
 Provider = require('../../models/purchases/provider.js');
 
-//---- Mostrar todos los clientes ------!
+//---- Mostrar todos los proveedores ------!
 exports.index = function(req, res) {
 	Provider.find({}, function(err, providers){
 		if(err)
@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 	});
 };
 
-//----- Crear nuevo Cliente -------!
+//----- Crear nuevo Proveedor -------!
 exports.create = (req, res) => {
 	console.log(req.body);
 	if(!req.body){
@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 	});
 };
 
-//----- Mostrar cliente -------!
+//----- Mostrar Proveedor -------!
 exports.view = function(req, res){
 	Provider.findById(req.params._id, function (err, provider){
 		console.log(req.params._id);
@@ -40,33 +40,21 @@ exports.view = function(req, res){
 	});
 };
 
-//--------- Actualizar cliente ----------!
+//--------- Actualizar Proveedor ----------!
 exports.update = function(req, res){
 	//console.log(req.params._id);
-	Provider.findById(req.params._id, function(err, provider){
-		if(err)
-			res.json(err);
-		provider.name =req.body.name ? req.body.name : provider.name;
-		provider.save(function(err){
-			if(err)
-				res.json(err);
-			res.json({
-				message: "Provider info update",
-				provider: provider
-			});
-		});
-	});
+	Provider.findByIdAndUpdate(req.params._id, req.body, {new: true}, function (err, provider) {
+		if	(err)	return res.status(500).send(err);
+		res.status(200).send(provider);
+	})
 };
 
-//--------- Borrar cliente ----------!
+//--------- Borrar Proveedor ----------!
 exports.delete = function (req, res) {
     Provider.remove({
         _id: req.params._id
     }, function (err, provider) {
         if (err)
-            res.send(err);res.json({
-            status: "success",
-            message: 'Provider deleted'
-        });
+            res.send(err);
     });
 };

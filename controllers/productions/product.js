@@ -29,17 +29,9 @@ exports.create = (req, res) => {
 	};
 	const stock = new Stock(stockBody);
 	
-	stock.save()
-	.then(data => {
-		res.send(data);
-	}).catch(err => {
-		res.status(500).send({
-            message: err.message || "Something wrong while creating the stock."
-        });
-	});
-
 	product.save()
 	.then(data => {
+		stock.save();
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
