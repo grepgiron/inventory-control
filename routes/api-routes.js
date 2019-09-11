@@ -16,6 +16,10 @@ var categoryController = require('../controllers/productions/category');
 var productController = require('../controllers/productions/product');
 var stockController = require('../controllers/productions/stock');
 
+//Compras
+var purchaseController = require('../controllers/purchases/purchase_order');
+var providerController = require('../controllers/purchases/provider');
+
 //Inventerio
 var kardexController = require('../controllers/inventory/kardex');
 
@@ -23,7 +27,7 @@ var customerController = require('../controllers/sales/customer');
 var storeController = require('../controllers/sales/store');
 var staffController = require('../controllers/sales/staff');
 var orderController = require('../controllers/sales/order');
-var providerController = require('../controllers/purchases/provider');
+
 
 //--------Routes Brands----------//
 router.route('/brands')
@@ -128,6 +132,16 @@ router.route('/providers/:_id')
 router.route('/kardex')		
 	.get(kardexController.index)
 	.post(kardexController.create);
+
+//--------Routes Providers----------//
+router.route('/purchases')
+	.get(purchaseController.index)
+	.post(purchaseController.create);
+
+router.route('/purchases/:_id')
+	.get(purchaseController.view)
+	.patch(purchaseController.update)
+	.put(purchaseController.update)
 
 // Export API routes
 module.exports = router;

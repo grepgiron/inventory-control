@@ -12,17 +12,25 @@ var KardexSchema = mongoose.Schema(
 			ref: 'Product', 
 			required: [true, 'Product is required']	
 		},
-		quanty: {	
-			type: String,  
+		quantity: {	
+			type: Number,  
 			required: true,
+		},
+		unit_cost: {
+			type: String,
+			default: "0.00",
 		},
 		description: {	
 			type: String, 
-			require: true 	
+			require: true,
 		},
 		date: {
 			type: Schema.Types.Date,
 			required: true,
+		},
+		movement_type: {
+			type: String,
+			require: true,
 		}
 	}
 );

@@ -1,5 +1,6 @@
 PurchaseOrder = require('../../models/purchases/purchase_order.js');
 Kardex = require('../../models/inventory/kardex.js');
+productMovement = require('../../helpers/product_movement_helper');
 
 //---- Mostrar todos las orden de compra ------!
 exports.index = function(req, res) {
@@ -24,6 +25,7 @@ exports.create = (req, res) => {
 	purchase_order.save()
 	.then(data => {
 		res.send(data);
+		//productMovement.Movements(data.products, 'ENTRADA', purchase_order);
 	}).catch(err => {
 		res.status(500).send({
             message: err.message || "Something wrong while creating the purchase_order."
@@ -33,7 +35,9 @@ exports.create = (req, res) => {
 
 //----- Mostrar orden de compra -------!
 exports.view = function(req, res){
-	PurchaseOrder.findById(req.params._id, function (err, purchase_order){
+	PurchaseOrder.findById(req.params._id)
+	.populate('products.product', 'name')
+	.exec(function (err, purchase_order){
 		console.log(req.params._id);
 		if(err)
 			res.json(err);
@@ -51,11 +55,11 @@ exports.update = function(req, res){
 };
 
 //--------- Borrar orden de compra ----------!
-exports.delete = function (req, res) {
+/*exports.delete = function (req, res) {
     PurchaseOrder.remove({
         _id: req.params._id
     }, function (err, purchase_order) {
         if (err)
             res.send(err);
     });
-};
+};*/

@@ -4,7 +4,7 @@ const timestamps = require('mongoose-timestamp');
 var PurchaseOrderSchema = mongoose.Schema(
 	{
 		provider: { 
-			type: Schema.Types.ObjectId, 
+			type: mongoose.Schema.Types.ObjectId, 
 			ref: 'Provider', 
 			require: [true, 'Customer is require']
 		},
@@ -13,26 +13,26 @@ var PurchaseOrderSchema = mongoose.Schema(
 		},
 		products:[{
 			product: {
-				type: Schema.Types.ObjectId,
+				type: mongoose.Schema.Types.ObjectId,
 				ref: 'Product',
 				require: [true, 'Store is require']
 			},
-			quanty: {
+			quantity: {
 				type: Number
 			},
 			unit_value: {
 		      type: String,
 		      required: [true, 'Valor Unitario no puede estar vacio']
-		    },
-		    tax: {
-		      type: String
-		    },
-		    subtotal: {
-		      type: String
-		    },
-		    total: {
-		      type: String
-		    }
+	    },
+	    tax: {
+	      type: String
+	    },
+	    subtotal: {
+	      type: String
+	    },
+	    total: {
+	      type: String
+	    }
 		}],
 		purchase_date: Date,
 	}
