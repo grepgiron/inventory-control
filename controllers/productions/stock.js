@@ -62,7 +62,7 @@ exports.update = function(req, res){
 
 //---- Borrar Catidades ------! 
 exports.delete = function (req, res) {
-    Stock.remove({
+    Stock.deleteOne({
         _id: req.params._id
     }, function (err, stock) {
         if (err)

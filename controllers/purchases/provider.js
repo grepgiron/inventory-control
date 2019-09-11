@@ -51,7 +51,7 @@ exports.update = function(req, res){
 
 //--------- Borrar Proveedor ----------!
 exports.delete = function (req, res) {
-    Provider.remove({
+    Provider.deleteOne({
         _id: req.params._id
     }, function (err, provider) {
         if (err)
