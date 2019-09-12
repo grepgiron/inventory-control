@@ -8,7 +8,10 @@ var PurchaseOrderSchema = mongoose.Schema(
 			ref: 'Provider', 
 			require: [true, 'Customer is require']
 		},
-		payment_type: { 
+		number_order: {
+			type: String
+		},
+		order_type: { 
 			type: String
 		},
 		products:[{

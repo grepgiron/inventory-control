@@ -3,10 +3,7 @@ Kardex = require('../../models/inventory/kardex.js');
 productMovement = require('../../helpers/product_movement_helper');
 
 //---- Mostrar todos las orden de compra ------!
-exports.index = function(req, res) {
-	PurchaseOrder.count({}, function(err, count){
-		console.log(count);
-	});
+exports.index = function(req, res) {	
 	PurchaseOrder.find({}, function(err, purchase_orders){
 		if(err)
 			res.status(500).send(err);
@@ -16,7 +13,6 @@ exports.index = function(req, res) {
 
 //----- Crear nueva orden de compra -------!
 exports.create = (req, res) => {
-	console.log(req.body);
 	if(!req.body){
 		return res.status(400).send({
 			message: "purchase_order content can not be empty"
@@ -25,9 +21,13 @@ exports.create = (req, res) => {
 
 	const purchase_order = new PurchaseOrder(req.body);
 
+	PurchaseOrder.countDocuments({}, function(err, count){
+		purchase_order.number_order = count + 1;
+	});
+
 	purchase_order.save()
 	.then(data => {
-		productMovement.Movements(data.products, 'ENTRADA', null, purchase_order.purchase_date);	
+		productMovement.Movements(data.products, 'ENTRADA', data.number_order, data.purchase_date);	
 		res.send(data);
 	}).catch(err => {
 		res.status(500).send({
@@ -58,11 +58,11 @@ exports.update = function(req, res){
 };
 
 //--------- Borrar orden de compra ----------!
-/*exports.delete = function (req, res) {
-    PurchaseOrder.remove({
+exports.delete = function (req, res) {
+    PurchaseOrder.deleteOne({
         _id: req.params._id
     }, function (err, purchase_order) {
         if (err)
             res.send(err);
     });
-};*/
+};

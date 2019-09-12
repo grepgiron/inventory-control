@@ -142,6 +142,7 @@ router.route('/purchases/:_id')
 	.get(purchaseController.view)
 	.patch(purchaseController.update)
 	.put(purchaseController.update)
+	.delete(purchaseController.delete);
 
 // Export API routes
 module.exports = router;
