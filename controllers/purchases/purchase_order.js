@@ -4,6 +4,9 @@ productMovement = require('../../helpers/product_movement_helper');
 
 //---- Mostrar todos las orden de compra ------!
 exports.index = function(req, res) {
+	PurchaseOrder.count({}, function(err, count){
+		console.log(count);
+	});
 	PurchaseOrder.find({}, function(err, purchase_orders){
 		if(err)
 			res.status(500).send(err);
@@ -24,8 +27,8 @@ exports.create = (req, res) => {
 
 	purchase_order.save()
 	.then(data => {
+		productMovement.Movements(data.products, 'ENTRADA', null, purchase_order.purchase_date);	
 		res.send(data);
-		//productMovement.Movements(data.products, 'ENTRADA', purchase_order);
 	}).catch(err => {
 		res.status(500).send({
             message: err.message || "Something wrong while creating the purchase_order."
