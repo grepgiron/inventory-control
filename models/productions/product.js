@@ -30,6 +30,10 @@ var ProductSchema = mongoose.Schema(
 		price: {	
 			type: Schema.Types.Decimal128, 
 			require: true 	
+		},
+		unit_value: {	
+			type: Schema.Types.Decimal128, 
+			require: true 	
 		}
 	}
 );
